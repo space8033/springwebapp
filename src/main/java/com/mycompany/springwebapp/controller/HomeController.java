@@ -16,6 +16,7 @@ public class HomeController {
 		log.info("실행3");
 		log.info("실행4");
 		log.info("실행7");
+		log.info("실행8");
 		
 		return "index";
 	}
