@@ -30,11 +30,11 @@ public class HomeController {
 		log.info("실행");
 	}
 	
-	// http://localhost:8080/springwebapp/
+	// http://localhost:8080/springwebapp/ 요청시 HomeController.index() 실행.
 	@RequestMapping("/")
 	public String index() {
 		log.info("실행");
 		
-		return "index";
+		return "home";
 	}
 }	
