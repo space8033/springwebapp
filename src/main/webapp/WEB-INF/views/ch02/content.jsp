@@ -134,9 +134,10 @@
             <a href="javascript:ajax2()" class="btn btn-info btn-sm">AJAX 요청(JSON 응답)</a>
             <a href="javascript:ajax3()" class="btn btn-info btn-sm">AJAX 요청(JSON 응답)</a>
             <a href="javascript:ajax4()" class="btn btn-info btn-sm">AJAX 요청(JSON 응답)</a>
-            <a href="javascript:fileDownload()" class="btn btn-info btn-sm">파일 다운로드</a>
-            
             <div id="content" class="mt-2"></div>
+
+            <a href="fileDownload" class="btn btn-info btn-sm">파일 다운로드</a>
+            
             <script>
                function ajax1() {
                   $.ajax({
