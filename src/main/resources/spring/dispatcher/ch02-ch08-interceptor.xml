@@ -17,6 +17,13 @@
 			<mvc:mapping path="/ch02/**"/>
 			<bean class="com.mycompany.springwebapp.interceptor.Ch02InterceptorB"></bean>
 		</mvc:interceptor>
+
+		<mvc:interceptor>
+			<!-- 경로 전체 제외시 resources도 인터셉터에 걸리므로 아래처럼 제외시켜줘야함 -->
+			<mvc:mapping path="/**"/>
+			<mvc:exclude-mapping path="/resources/**"/>
+			<bean class="com.mycompany.springwebapp.interceptor.Ch08LoginCheckInterceptor"></bean>
+		</mvc:interceptor>
 	</mvc:interceptors>
 
 </beans>
