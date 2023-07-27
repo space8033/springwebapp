@@ -17,9 +17,9 @@
 			<AppenderRef ref="Out" />
 		</Logger>
 		<!-- DB가 보내는 결과를 로그로 출력하기 위한 설정 -->
-		<Logger name="jdbc.resultset" level="info" additivity="false">
+		<!-- <Logger name="jdbc.resultset" level="info" additivity="false">
 			<AppenderRef ref="Out" />
-		</Logger>
+		</Logger> -->
 
 		<Root level="error">
 			<AppenderRef ref="Out" />

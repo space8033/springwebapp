@@ -10,4 +10,13 @@
 		select bno, btitle, bcontent, mid, bdate, bhitcount, battachoname, battachsname, battachtype, battachdata
 		from board
 	</select>
+	
+	<update id="updateByBno" parameterType="com.mycompany.springwebapp.dto.Ch13Board">
+		update board set btitle=#{btitle}, bcontent=#{bcontent}
+		where bno=#{bno}
+	</update>
+	
+	<delete id="deleteByBno" parameterType="int">
+		delete from board where bno=#{bno}
+	</delete>
 </mapper>

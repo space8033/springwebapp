@@ -14,6 +14,12 @@
 		<div class="mt-2">
 			<a href="getBoardList" class="btn btn-info btn-sm">게시물 목록 가져오기</a>
 		</div>
+		<div class="mt-2">
+			<a href="updateBoard" class="btn btn-info btn-sm">게시물 변경하기</a>
+		</div>
+		<div class="mt-2">
+			<a href="deleteBoard" class="btn btn-info btn-sm">게시물 삭제하기</a>
+		</div>
 	</div>
 </div>
 
