@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 public class Ch02InterceptorB implements HandlerInterceptor{
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-		log.info("실행");
+//		log.info("실행");
 		
 		//요청 처리 메소드에 @Auth가 붙어있는지 확인
 		HandlerMethod handlerMethod = (HandlerMethod) handler;

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mycompany.springwebapp.dao.mybatis.Ch13BoardDao">
+	<insert id="insert" parameterType="com.mycompany.springwebapp.dto.Ch13Board">
+		insert into board(bno, btitle, bcontent, mid, bdate, bhitcount)
+		values(seq_bno.nextval, #{btitle}, #{bcontent}, #{mid}, sysdate, 0)
+	</insert>
+	
+	<select id="selectAll" resultType="com.mycompany.springwebapp.dto.Ch13Board">
+		select bno, btitle, bcontent, mid, bdate, bhitcount, battachoname, battachsname, battachtype, battachdata
+		from board
+	</select>
+</mapper>
