@@ -38,9 +38,9 @@
 	</bean> -->
 	
 	<bean class="com.mycompany.springwebapp.service.Ch12ServiceDiByXml">
-		<!-- 생성자 호출하면서 의존 주입 -->
-		<constructor-arg ref="daoByXml1"></constructor-arg>
-		<!-- Setter 호출하면서 의존 주입 -->
+		<!-- 매개 변수 있는 생성자 호출하면서 의존 주입(생성자 주입) -->
+		<constructor-arg ref="daoByXml1"/>
+		<!-- Setter 주입 -->
 		<property name="ch12DaoByXml2" ref="daoByXml2"></property>
 		<property name="ch12DaoByXml3" ref="daoByXml3"></property>
 		<property name="collection1">
@@ -49,6 +49,27 @@
 				<value>아이템2</value>
 				<value>아이템3</value>
 			</list>
+		</property>
+		<property name="collection2">
+			<set>
+				<ref bean="daoByXml1"/>
+				<ref bean="daoByXml2"/>
+				<ref bean="daoByXml3"/>
+			</set>
+		</property>
+		<property name="collection3">
+			<map>
+				<entry key="key1" value="홍길동"></entry>
+				<entry key="key2" value-ref="daoByXml1"></entry>
+			</map>
+		</property>
+		<property name="collection4">
+			<props>
+				<prop key="key1">데이터1</prop>
+				<prop key="key2">데이터2</prop>
+				<prop key="key3">데이터3</prop>
+				<prop key="key4">데이터4</prop>
+			</props>
 		</property>
 	</bean>
 	

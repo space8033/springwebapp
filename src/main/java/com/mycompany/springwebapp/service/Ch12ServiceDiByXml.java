@@ -1,6 +1,9 @@
 package com.mycompany.springwebapp.service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
 
 import com.mycompany.springwebapp.dao.Ch12DaoByXml1;
 import com.mycompany.springwebapp.dao.Ch12DaoByXml2;
@@ -44,6 +47,18 @@ public class Ch12ServiceDiByXml {
 		for(String item : list) {
 			log.info(item);
 		}
+	}
+
+	public void setCollection2(Set set) {
+		log.info("아이템 수: " + set.size());
+	}
+
+	public void setCollection3(Map<String, Object> map) {
+		log.info("아이템 수: " + map.size());
+	}
+
+	public void setCollection4(Properties prop) {
+		log.info("아이템 수: " + prop.size());
 	}
 	
 	//인스턴스 메소드
