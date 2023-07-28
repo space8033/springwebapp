@@ -29,8 +29,8 @@ public class Ch13BoardDaoOldImpl implements Ch13BoardDaoOld{
 		return rows;
 	}
 	
-	public List<Ch13Board> selectAll(Ch13Pager pager) {
-		List<Ch13Board> list = sst.selectList("com.mycompany.springwebapp.dao.Ch13BoardDao.selectAll");
+	public List<Ch13Board> selectByPage(Ch13Pager pager) {
+		List<Ch13Board> list = sst.selectList("com.mycompany.springwebapp.dao.Ch13BoardDao.selectByPage");
 		
 		for(Ch13Board board : list) {
 			log.info(board.toString());

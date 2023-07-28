@@ -11,7 +11,7 @@
 		values(#{bno}, #{btitle}, #{bcontent}, #{mid}, sysdate, 0)
 	</insert>
 	
-	<select id="selectAll" parameterType="Pager" resultType="Board">
+	<select id="selectByPage" parameterType="Pager" resultType="Board">
 		<![CDATA[
 		select rnum, bno, btitle, mid, bdate, bhitcount, battachoname
 		from (

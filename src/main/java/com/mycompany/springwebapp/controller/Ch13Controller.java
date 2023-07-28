@@ -12,6 +12,7 @@ import com.mycompany.springwebapp.dao.Ch13BoardDao;
 import com.mycompany.springwebapp.dao.Ch13BoardDaoOldImpl;
 import com.mycompany.springwebapp.dto.Ch13Board;
 import com.mycompany.springwebapp.dto.Ch13Pager;
+import com.mycompany.springwebapp.service.Ch13BoardService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,9 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/ch13")
 public class Ch13Controller {
 	@Resource
-	private Ch13BoardDaoOldImpl boardDaoOld;
-	@Resource
-	private Ch13BoardDao boardDao;
+	private Ch13BoardService boardService;
 	
 	
 	@RequestMapping("/content")
@@ -40,22 +39,19 @@ public class Ch13Controller {
 		board.setBcontent("연봉: ");
 		board.setMid("user");
 		
-		boardDao.insert(board);
-		//boardDaoOld.insert(board);
+		boardService.write(board);
 		
 		log.info("저장된 bno: " + board.getBno());
 
-		
 		//실제로 저장됨 bno
 		return "redirect:/ch13/content";
 	}
 	
 	@GetMapping("/getBoardList")
 	public String getBoardList() {
-		int totalRows = boardDao.count();
-		Ch13Pager pager = new Ch13Pager(10, 5, totalRows, 3);
-//		List<Ch13Board> list = boardDaoOld.selectAll();
-		List<Ch13Board> list = boardDao.selectAll(pager);
+		int totalBoardNum = boardService.getTotalBoardNum();
+		Ch13Pager pager = new Ch13Pager(10, 5, totalBoardNum, 1);
+		List<Ch13Board> list = boardService.getList(pager);
 
 		for(Ch13Board board : list) {
 			log.info(board.toString());
@@ -66,21 +62,19 @@ public class Ch13Controller {
 	
 	@GetMapping("/updateBoard")
 	public String updateBoard() {
-		Ch13Board board = boardDaoOld.selectByBno(1);
+		Ch13Board board = boardService.getBoard(10001);
 		board.setBtitle("메롱");
 		board.setBcontent("메롱메롱");
 		
-		boardDao.updateByBno(board);
-		//boardDaoOld.updateByBno(board);
+		boardService.modify(board);
 		
 		return "redirect:/ch13/content";
 	}
 	
 	@GetMapping("/deleteBoard")
 	public String deleteBoard(Integer bno) {
-		//boardDaoOld.deleteByBno(bno);
 		bno = 21;
-		boardDao.deleteByBno(bno);
+		boardService.remove(bno);
 		
 		return "redirect:/ch13/content";
 	}

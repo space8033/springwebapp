@@ -10,7 +10,7 @@ import com.mycompany.springwebapp.dto.Ch13Pager;
 @Mapper
 public interface Ch13BoardDao {
 	public int insert(Ch13Board board);
-	public List<Ch13Board> selectAll(Ch13Pager pager);
+	public List<Ch13Board> selectByPage(Ch13Pager pager);
 	public Ch13Board selectByBno(int bno);
 	public int updateByBno(Ch13Board board);
 	public int deleteByBno(int bno);
