@@ -17,12 +17,19 @@ public class Ch13BoardDaoOld {
 	@Resource
 	private SqlSessionTemplate sst;
 	
-	public void insert(Ch13Board board) {
-		sst.insert("com.mycompany.springwebapp.dao.mybatis.Ch13BoardDao.insert", board);
+	public int insert(Ch13Board board) {
+		/* 
+		 1)com.mycompany.springwebapp.dao.mybatis.Ch13BoardDao.insert: Mapper XML 선택
+		 2).insert: Mapper XML 안에 선언된 ID
+		 3)리턴값: 실제 테이블에 반영된 행의 수
+		 */
+		int rows = sst.insert("com.mycompany.springwebapp.dao.Ch13BoardDao.insert", board);
+		
+		return rows;
 	}
 	
 	public List<Ch13Board> selectAll() {
-		List<Ch13Board> list = sst.selectList("com.mycompany.springwebapp.dao.mybatis.Ch13BoardDao.selectAll");
+		List<Ch13Board> list = sst.selectList("com.mycompany.springwebapp.dao.Ch13BoardDao.selectAll");
 		
 		for(Ch13Board board : list) {
 			log.info(board.toString());
@@ -30,18 +37,22 @@ public class Ch13BoardDaoOld {
 		
 		return list;
 	}
-	
-	public void updateByBno() {
-		List<Ch13Board> list = selectAll();
-		Ch13Board board = list.get(0);
-		board.setBtitle("변경된 제목");
-		board.setBcontent("변경된 내용");
+
+	public Ch13Board selectByBno(int bno) {
+		Ch13Board board = sst.selectOne("com.mycompany.springwebapp.dao.Ch13BoardDao.selectByBno", bno);
 		
-		sst.update("com.mycompany.springwebapp.dao.mybatis.Ch13BoardDao.updateByBno", board);
+		return board;
 	}
 	
-	public void deleteByBno() {
-		int bno = 20;
-		sst.delete("com.mycompany.springwebapp.dao.mybatis.Ch13BoardDao.deleteByBno", bno);
+	public int updateByBno(Ch13Board board) {		
+		int rows = sst.update("com.mycompany.springwebapp.dao.Ch13BoardDao.updateByBno", board);
+		
+		return rows;
+	}
+	
+	public int deleteByBno(int bno) {
+		int rows = sst.delete("com.mycompany.springwebapp.dao.Ch13BoardDao.deleteByBno", bno);
+		
+		return rows;
 	}
 }
