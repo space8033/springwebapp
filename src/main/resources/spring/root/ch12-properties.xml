@@ -8,9 +8,7 @@
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 		
 	<context:property-placeholder location="classpath:properties/*.properties"/>
-	
 	<bean class="com.mycompany.springwebapp.service.Ch12ServicePropertyDi">
-		<property name="prop4" value="${test.prop4}"></property>
-	</bean>
-	
+      <property name="prop4" value="${test.prop4}"></property>
+   </bean>
 </beans>

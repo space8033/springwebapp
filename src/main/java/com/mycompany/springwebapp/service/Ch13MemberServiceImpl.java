@@ -2,6 +2,8 @@ package com.mycompany.springwebapp.service;
 
 import javax.annotation.Resource;
 
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.mycompany.springwebapp.dao.Ch13MemberDao;
@@ -16,8 +18,17 @@ public class Ch13MemberServiceImpl implements Ch13MemberService{
 	private Ch13MemberDao memberDao;
 	
 	@Override
-	public void join(Ch13Member member) {
-		memberDao.insert(member);
+	public JoinResult join(Ch13Member member) {
+		Ch13Member dbMember = memberDao.selectByMid(member.getMid());
+		if(dbMember != null) {
+			return JoinResult.FAIL_DUPLICATED_MID;
+		}else {
+			PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+			member.setMpassword(passwordEncoder.encode(member.getMpassword()));
+			
+			memberDao.insert(member);
+			return JoinResult.SUCCESS;
+		}
 	}
 
 	@Override
@@ -26,7 +37,9 @@ public class Ch13MemberServiceImpl implements Ch13MemberService{
 		if(dbMember == null) {
 			return LoginResult.FAIL_MID;
 		}
-		if(dbMember.getMpassword().equals(member.getMpassword())) {
+		
+		PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+		if(passwordEncoder.matches(member.getMpassword(), dbMember.getMpassword())) {
 			if(dbMember.isMenabled()) {
 				return LoginResult.SUCCESS;				
 			}else {
