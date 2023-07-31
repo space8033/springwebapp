@@ -1,7 +1,5 @@
 package com.mycompany.springwebapp.service;
 
-import org.springframework.stereotype.Service;
-
 import com.mycompany.springwebapp.dto.Ch13Member;
 
 public interface Ch13MemberService {
