@@ -169,6 +169,16 @@
 	    <version>5.5.8</version>
 	</dependency>
 	
+	<!-- 
+		Ch14 Aop 사용을 위한 라이브러리
+	 -->
+	 <dependency>
+	    <groupId>org.aspectj</groupId>
+	    <artifactId>aspectjweaver</artifactId>
+	    <version>1.9.19</version>
+	    <scope>runtime</scope>
+	</dependency>
+	 
   	 
   </dependencies>
 </project>

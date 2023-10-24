@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mycompany.springwebapp.dto.Ch13Board;
@@ -54,11 +55,23 @@ public class Ch13Controller {
 	}
 	
 	@GetMapping("/getBoardList")
-	public String getBoardList(
-			@RequestParam(defaultValue="1") int pageNo,
-			Model model) {
+	public String getBoardList(String pageNo, Model model, HttpSession session) {
+		//브라우저에서 pageNo가 넘어오지 않은 경우
+		if(pageNo == null) {
+			//세션에 저장되어 있는지 확인
+			pageNo = (String) session.getAttribute("pageNo");
+			if(pageNo == null) {
+				//저장되어있지 않은 경우 1로 초기화
+				pageNo = "1";
+			}
+		}
+		//문자열을 정수로 변환
+		int intPageNo = Integer.parseInt(pageNo);
+		//세션에 pageNo 저장
+		session.setAttribute("pageNo", String.valueOf(pageNo));
+		
 		int totalBoardNum = boardService.getTotalBoardNum();
-		Ch13Pager pager = new Ch13Pager(10, 5, totalBoardNum, pageNo);
+		Ch13Pager pager = new Ch13Pager(10, 5, totalBoardNum, intPageNo);
 		List<Ch13Board> list = boardService.getList(pager);
 		
 		model.addAttribute("pager", pager);
@@ -170,22 +183,33 @@ public class Ch13Controller {
 	}
 	
 	@GetMapping("/updateBoard")
-	public String updateBoard() {
-		Ch13Board board = boardService.getBoard(10001);
-		board.setBtitle("메롱");
-		board.setBcontent("메롱메롱");
+	@Login
+	public String updateBoardForm(int bno, Model model, HttpSession session) {
+		Ch13Board board = boardService.getBoard(bno);
 		
+		/*Ch13Member member = (Ch13Member) session.getAttribute("ch13Login");
+		if(!member.getMid().equals(board.getMid())) {
+			return "redirect:/ch13/getBoardList";
+		}*/
+		
+		model.addAttribute("board", board);
+		return "ch13/updateBoardForm";
+	}
+	
+	@PostMapping("/updateBoard")
+	@Login
+	public String updateBoard(Ch13Board board, Model model) {
 		boardService.modify(board);
 		
-		return "redirect:/ch13/content";
+		return "redirect:/ch13/getBoardList";
 	}
 	
 	@GetMapping("/deleteBoard")
+	@Login
 	public String deleteBoard(Integer bno) {
-		bno = 21;
 		boardService.remove(bno);
 		
-		return "redirect:/ch13/content";
+		return "redirect:/ch13/getBoardList";
 	}
 	
 	@GetMapping("/join")

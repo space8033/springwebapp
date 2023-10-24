@@ -70,9 +70,11 @@
 				</div>
 				
 				<a class="btn btn-info btn-sm mt-2" href="getBoardList">목록</a>
-				<a class="btn btn-info btn-sm mt-2" href="updateBoard?bno=${board.bno}">수정</a>
-				<a class="btn btn-info btn-sm mt-2" href="deleteBoard?bno=${board.bno}">삭제</a>
 				
+				<c:if test="${board.mid == ch13Login.mid}">
+					<a class="btn btn-info btn-sm mt-2" href="updateBoard?bno=${board.bno}">수정</a>
+					<a class="btn btn-info btn-sm mt-2" href="deleteBoard?bno=${board.bno}">삭제</a>				
+				</c:if>
 			</div>
 		</div>
 	</div>
